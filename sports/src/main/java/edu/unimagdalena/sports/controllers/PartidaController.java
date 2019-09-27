@@ -49,16 +49,19 @@ public class PartidaController {
 		List<Partida> partidas = partidaService.buscarPartidasPorUsuario(us);
 
 		model.addAttribute("mispartidas", partidas);
+		model.addAttribute("PartidasU", us.getPartidas());
 		return "mispartidas";
 
 	}
 
 	@GetMapping("/mis-partidas")
 	public String listarPartidas(Model model) {
+		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
 		Usuario us = usuarioService.findUsuarioByUsername(auth.getName());
 		List<Partida> partidas = partidaService.buscarPartidasPorUsuario(us);
+		model.addAttribute("partidasU", us.getPartidas());
 		model.addAttribute("mispartidas", partidas);
 		return "mispartidas";
 	}
@@ -73,6 +76,7 @@ public class PartidaController {
 		Usuario us = usuarioService.findUsuarioByUsername(auth.getName());
 		List<Partida> partidas = partidaService.buscarPartidasPorUsuario(us);
 		model.addAttribute("mispartidas", partidas);
+		model.addAttribute("partidasU", us.getPartidas());
 
 		return "mispartidas";
 	}
@@ -93,6 +97,7 @@ public class PartidaController {
 		modelo.addAttribute("partidas", partidas);
 		return "buscarpartida";
 	}
+	
 	@GetMapping("/unirse-partida/{id}")
 	public String unirsePartida(@PathVariable("id") Long id,Model model) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -100,10 +105,45 @@ public class PartidaController {
 		
 		Partida partida = partidaService.buscarPartidaPorId(id);
 		us.getPartidas().add(partida);
+		
 		usuarioService.actualizarPartida(us);
+		
+		
+		model.addAttribute("mispartidas", partida);
+		model.addAttribute("partidasU ", us.getPartidas());
 		
 		return "mispartidas";
 		
+	}
+	
+	@GetMapping("/abandonar-partida/{id}")
+	public String abandonarPartida(@PathVariable("id") Long id, Model model) {
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		
+		Usuario us = usuarioService.findUsuarioByUsername(auth.getName());
+		Partida partida = partidaService.buscarPartidaPorId(id);
+		us.getPartidas().remove(partida);
+		
+		usuarioService.actualizarPartida(us);
+		
+		model.addAttribute("partidasU ", us.getPartidas());
+		model.addAttribute("mispartidas", partida);
+		
+		return "mispartidas";
+	}
+	
+	@GetMapping("/info-partida/{id}")
+	public String infopartida(@PathVariable("id") Long id , Model model) {
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		Usuario us = usuarioService.findUsuarioByUsername(auth.getName());
+		
+		Partida partida = partidaService.buscarPartidaPorId(id);
+		
+		model.addAttribute("infoPartida", partida);
+		
+		return ("info-partida");
 	}
 
 }
