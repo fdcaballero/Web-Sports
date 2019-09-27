@@ -7,7 +7,7 @@
 </head>
 <body>
 	<header th:replace = "layout/base::header('Informacion de la partida')"></header>
-			 <div class="col-md-6 mx-auto">
+			 <div class="col-md-7 mx-auto">
 				<table class="table table-striped">
 					<thead>
 						<tr>
@@ -35,7 +35,7 @@
 					</tbody>
 				</table>
 			</div>
-			<div>
+			<div class="col-md-7 mx-auto">
 				<table class="table table-striped">
 					<thead>
 						<tr>
@@ -44,7 +44,7 @@
 					</thead>
 					<tbody>
 						<tr>
-							<td th:text="${partida.descripcion}"></td>
+						<td th:text="${infoPartida.descripcion}"></td>
 						</tr>
 					</tbody>
 				</table>
