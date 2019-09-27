@@ -6,13 +6,13 @@
 <body>
 	<header th:replace="layout/base::header('Mis partida')"></header>
 
-	<div class="wrapper">
+	<div class="wrapper ">
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-md-12">
 
 					<div class="row">
-						<div class="col-md-6 mx-auto">
+						<div class="col-ms-10 mx-auto ">
 							<div class="card border-secondary">
 								<div class="card-header">
 									<h3 class="mb-0 my-2">Mis partidas</h3>
@@ -52,9 +52,10 @@
 									</div>
 								</div>
 							</div>
+							<br>
 							  <div class="row">
-								<div class=" col-md-10 mx-auto">
-								  <div class="card ">
+								<div class=" col-ms-10 mx-auto">
+								  <div class="card border-secondary">
 										<div class="card-header">
 											<h3 class="mb-0 my-2">Partidas a las que me he unido</h3>
 										</div>
@@ -76,17 +77,17 @@
 													</tr>
 												</thead>
 												<tbody>
-													 <tr th:each="partida : ${partidasU}">
-													 	<td th:text="${partida.creador}"></td>
-													 	<td th:text="${partida.deporte}"></td>
-													 	<td th:text="${partida.ciudad}"></td>
-													 	<td th:text="${partida.fecha}"></td>
-													 	<td th:text="${partida.horaComienzo}"></td>
-													 	<td><span class="badge badge-pill badge-warning" th:text="${#sets.size(partida.usuariosParticipantes)+'/'+partida.participantes}"></span></td>
+													 <tr th:each="partidau : ${partidasU}">
+													 	<td th:text="${partidau.creador}"></td>
+													 	<td th:text="${partidau.deporte}"></td>
+													 	<td th:text="${partidau.ciudad}"></td>
+													 	<td th:text="${partidau.fecha}"></td>
+													 	<td th:text="${partidau.horaComienzo}"></td>
+													 	<td><span class="badge badge-pill badge-warning" th:text="${#sets.size(partidau.usuariosParticipantes)+'/'+partidau.participantes}"></span></td>
 													 	
 													 	<!-- https://github.com/waylau/thymeleaf-tutorial/blob/master/docs/expression-utility-objects.md -->
-													 	<td><a th:href="@{/abandonar-partida/{id}(id=${partida.id})}"  class="btn btn-primary btn-sm active" role="button" aria-pressed="true">Abandonar</a></td>
-													 	 <td><a th:href="@{/info-partida/{id}(id=${partida.id})}"  class="btn btn-warning btn-sm active" role="button" aria-pressed="true">+ Info</a></td>
+													 	<td><a th:href="@{/abandonar-partida/{id}(id=${partidau.id})}"  class="btn btn-primary btn-sm active" role="button" aria-pressed="true">Abandonar</a></td>
+													 	 <td><a th:href="@{/info-partida/{id}(id=${partidau.id})}"  class="btn btn-warning btn-sm active" role="button" aria-pressed="true">+ Info</a></td>
 													 	  
 													 </tr>
 												</tbody>

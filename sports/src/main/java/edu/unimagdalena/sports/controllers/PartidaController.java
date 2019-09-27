@@ -49,7 +49,8 @@ public class PartidaController {
 		List<Partida> partidas = partidaService.buscarPartidasPorUsuario(us);
 
 		model.addAttribute("mispartidas", partidas);
-		model.addAttribute("PartidasU", us.getPartidas());
+		model.addAttribute("partidasU", us.getPartidas());
+		
 		return "mispartidas";
 
 	}
@@ -108,12 +109,12 @@ public class PartidaController {
 		
 		Partida partida = partidaService.buscarPartidaPorId(id);
 		us.getPartidas().add(partida);
-		
+		List<Partida> partidas = partidaService.buscarPartidasPorUsuario(us);
 		usuarioService.actualizarPartida(us);
 		
 		
-		model.addAttribute("mispartidas", partida);
-		model.addAttribute("partidasU ", us.getPartidas());
+		model.addAttribute("mispartidas", partidas);
+		model.addAttribute("partidasU", us.getPartidas());
 		
 		return "mispartidas";
 		
@@ -125,13 +126,14 @@ public class PartidaController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		
 		Usuario us = usuarioService.findUsuarioByUsername(auth.getName());
+		
 		Partida partida = partidaService.buscarPartidaPorId(id);
 		us.getPartidas().remove(partida);
-		
 		usuarioService.actualizarPartida(us);
 		
-		model.addAttribute("mispartidas", partida);
-		model.addAttribute("partidasU ", us.getPartidas());
+		List<Partida> partidas = partidaService.buscarPartidasPorUsuario(us);
+		model.addAttribute("mispartidas", partidas);
+		model.addAttribute("partidasU", us.getPartidas());
 		
 		return "mispartidas";
 	}
