@@ -54,6 +54,7 @@ public class Partida implements Serializable {
 	
 	@ManyToMany(mappedBy = "partidas")
 	private Set<Usuario> usuariosParticipantes ;
+	
 	public Partida() {
 		super();
 		usuariosParticipantes = new HashSet<>(); 
